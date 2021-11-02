@@ -2,6 +2,7 @@
     <div class="app" :class="{'dark': getMode}">
         <Sidebar/>
         <div class="app__content">
+            <Input/>
             <router-view/>
         </div>
     </div>
@@ -10,6 +11,7 @@
 <script>
 import Sidebar from "@/components/Sidebar";
 import {mapGetters} from "vuex";
+import Input from "@/components/Input";
 
 export default {
     data() {
@@ -17,6 +19,7 @@ export default {
     },
     components: {
         Sidebar,
+        Input
     },
     computed: {
         ...mapGetters(['getMode'])
@@ -42,8 +45,9 @@ export default {
   transition: .3s;
   grid-template-areas:
           "side content";
+
   &__content {
-    margin-left: 220px;
+    margin: 30px 30px 0 240px;
   }
 }
 
