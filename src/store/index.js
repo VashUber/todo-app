@@ -16,8 +16,18 @@ export default new Vuex.Store({
         },
         setNewTask(state, payload) {
             const {text, date, type} = payload
-            if (type === '/') state.importantTasks.push({id: uniqid(), text, date})
-            else state.dailyTasks.push({id: uniqid(), text, date})
+            if (type === '/') {
+                state.importantTasks.push({id: uniqid(), text, date})
+                localStorage.setItem('importantTasks', JSON.stringify(state.importantTasks))
+            }
+            else {
+                state.dailyTasks.push({id: uniqid(), text, date})
+                localStorage.setItem('dailyTasks', JSON.stringify(state.dailyTasks))
+            }
+        },
+        setTasks(state) {
+            state.importantTasks = JSON.parse(localStorage.getItem('importantTasks')) || []
+            state.dailyTasks = JSON.parse(localStorage.getItem('dailyTasks')) || []
         }
     },
     actions: {
@@ -26,6 +36,9 @@ export default new Vuex.Store({
         },
         addNewTask(context, payload) {
             context.commit('setNewTask', payload)
+        },
+        setTasks(context) {
+            context.commit('setTasks')
         }
     },
     modules: {},
