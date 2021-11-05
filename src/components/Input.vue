@@ -1,7 +1,7 @@
 <template>
     <div class="input-wrapper">
         <div class="input">
-            <input type="text" class="input__text" v-model="text">
+            <input type="text" placeholder="Введите задачу" class="input__text" v-model="text">
             <input type="date" class="input__date" v-model="date">
         </div>
         <button class="input-wrapper__button" @click="addNewTask">Добавить</button>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="tasks-wrapper">
         <TaskItem v-for="item in tasks" :item="item" :key="item.id"/>
     </div>
 </template>
@@ -22,6 +22,11 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.tasks-wrapper {
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+}
 </style>

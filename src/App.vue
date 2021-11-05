@@ -3,7 +3,9 @@
         <Sidebar/>
         <div class="app__content">
             <Input/>
-            <router-view/>
+            <transition name="show" appear>
+                <router-view/>
+            </transition>
         </div>
     </div>
 </template>
@@ -14,9 +16,6 @@ import {mapGetters} from "vuex";
 import Input from "@/components/Input";
 
 export default {
-    data() {
-        return {}
-    },
     mounted() {
         this.$store.dispatch('setTasks')
     },
@@ -39,6 +38,7 @@ export default {
 }
 
 .app {
+  overflow-x: hidden;
   font-family: 'Open Sans', sans-serif;
   font-size: 1.1em;
   min-height: 100vh;
@@ -48,14 +48,29 @@ export default {
   transition: .3s;
   grid-template-areas:
           "side content";
+  grid-template-columns: 210px 1fr;
 
   &__content {
-    margin: 30px 30px 0 240px;
+    grid-area: content;
+    padding: 30px;
   }
 }
 
 .dark {
   transition: .3s;
   background-color: #25272f;
+}
+
+.show-enter-active {
+  animation: show 1s cubic-bezier(0.58, 0.59, 0.45, 0.95);
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
