@@ -43,6 +43,7 @@ export default {
   grid-area: side;
   background: rgba(77, 97, 136, 0.25);
   backdrop-filter: blur(4px);
+  z-index: 4;
   display: flex;
   flex-direction: column;
 

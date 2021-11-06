@@ -4,7 +4,7 @@
             <h2 class="task__text">{{ text }}</h2>
             <button class="task__delete-button" @click="deleteThisTask">
                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                     role="img" width="30" height="30" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                     role="img" width="40" height="40" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
                     <g fill="none">
                         <path d="M4 6h16l-1.58 14.22A2 2 0 0 1 16.432 22H7.568a2 2 0 0 1-1.988-1.78L4 6z"
                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -48,6 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .task {
+  display: inline-block;
   width: 240px;
   height: 350px;
   background: rgba(107, 123, 148, 0.5);
@@ -58,21 +59,31 @@ export default {
   &__text {
     text-align: center;
     grid-column-start: 2;
+    word-wrap: break-word;
+    width: 140px;
   }
 
   &__header {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 140px 1fr;
     justify-items: center;
     align-items: center;
-    height: 50px;
+    padding-top: 10px;
   }
 
   &__delete-button {
     background: none;
+    align-self: flex-start;
     border: none;
     outline: none;
-    color: #fff;
+    color: #eaeaea;
+    transition: 0.5s;
+
+    &:hover {
+      transition: .5s;
+      transform: scale(1.25);
+
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 <template>
-    <div class="tasks-wrapper">
+    <transition-group name="show-elements" class="tasks-wrapper">
         <TaskItem v-for="item in tasks" :item="item" :key="item.id"/>
-    </div>
+    </transition-group>
 </template>
 
 <script>
@@ -28,5 +28,18 @@ export default {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 30px;
+}
+
+.show-elements-enter-active, .show-elements-leave-active, .show-elements-move {
+  transition: transform .5s ease;
+}
+
+.show-elements-leave-active {
+  position: absolute;
+  left: -300px;
+}
+
+.show-elements-enter {
+  transform: translate3d(0, 45px, 0);
 }
 </style>

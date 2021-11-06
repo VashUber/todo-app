@@ -3,9 +3,7 @@
         <Sidebar/>
         <div class="app__content">
             <Input/>
-            <transition name="show" appear>
-                <router-view/>
-            </transition>
+            <router-view/>
         </div>
     </div>
 </template>
@@ -59,18 +57,5 @@ export default {
 .dark {
   transition: .3s;
   background-color: #25272f;
-}
-
-.show-enter-active {
-  animation: show 1s cubic-bezier(0.58, 0.59, 0.45, 0.95);
-}
-
-@keyframes show {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 </style>
