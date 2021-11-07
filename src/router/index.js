@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Important from "@/views/Important";
-import Daily from "@/views/Daily";
+import Main from "@/views/Main";
 
 Vue.use(VueRouter)
 
@@ -9,12 +8,12 @@ const routes = [
   {
     path: '/',
     name: 'Important',
-    component: Important
+    component: Main
   },
   {
     path: '/daily',
     name: 'Daily',
-    component: Daily
+    component: Main
   },
 ]
 

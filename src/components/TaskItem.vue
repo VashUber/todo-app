@@ -20,6 +20,9 @@
                 </svg>
             </button>
         </div>
+        <div class="task__footer">
+            {{ formattedDate }}
+        </div>
     </div>
 </template>
 
@@ -42,13 +45,20 @@ export default {
             const id = this.id
             this.$store.dispatch('deleteTask', {id, type})
         }
+    },
+    computed: {
+        formattedDate() {
+            return this.date.split('-').reverse().join('.')
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .task {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 240px;
   height: 350px;
   background: rgba(107, 123, 148, 0.5);
@@ -84,6 +94,12 @@ export default {
       transform: scale(1.25);
 
     }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
   }
 }
 
