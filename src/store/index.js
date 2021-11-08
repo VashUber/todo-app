@@ -9,6 +9,7 @@ export default new Vuex.Store({
         mode: false,
         importantTasks: [],
         dailyTasks: [],
+        modal: {isActive: false, id: ''},
     },
     mutations: {
         setMode(state) {
@@ -32,10 +33,13 @@ export default new Vuex.Store({
 
             this.dispatch('saveToLocalStorage')
         },
+        changeModalStatus(state, payload) {
+            state.modal = {isActive: !state.modal.isActive, id: payload}
+        },
         saveToLocalStorage(state) {
             localStorage.setItem('importantTasks', JSON.stringify(state.importantTasks))
             localStorage.setItem('dailyTasks', JSON.stringify(state.dailyTasks))
-        }
+        },
     },
     actions: {
         toggleMode(context) {
@@ -52,6 +56,9 @@ export default new Vuex.Store({
         },
         saveToLocalStorage(context) {
             context.commit('saveToLocalStorage')
+        },
+        changeModalStatus(context, payload) {
+            context.commit('changeModalStatus', payload)
         }
     },
     modules: {},
@@ -59,9 +66,16 @@ export default new Vuex.Store({
         getMode(state) {
             return state.mode
         },
+        getModalStatus(state) {
+            return state.modal
+        },
         getTasks: state => type => {
             if (type === 'important') return state.importantTasks
             return state.dailyTasks
+        },
+        getTaskById: state => (id, route) => {
+            if (route === '/') return state.importantTasks.findIndex(elem => elem.id === id)
+            else return state.dailyTasks.findIndex(elem => elem.id === id)
         }
     }
 })

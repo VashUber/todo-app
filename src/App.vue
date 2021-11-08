@@ -1,9 +1,12 @@
 <template>
     <div class="app" :class="{'dark': getMode}">
-        <Sidebar/>
-        <div class="app__content">
-            <Input/>
-            <router-view/>
+        <Modal v-if="getModalStatus.isActive" :id="getModalStatus.id"/>
+        <div class="app__main">
+            <Sidebar/>
+            <div class="app__content">
+                <Input/>
+                <router-view/>
+            </div>
         </div>
     </div>
 </template>
@@ -12,6 +15,7 @@
 import Sidebar from "@/components/Sidebar";
 import {mapGetters} from "vuex";
 import Input from "@/components/Input";
+import Modal from "@/components/Modal";
 
 export default {
     mounted() {
@@ -19,10 +23,11 @@ export default {
     },
     components: {
         Sidebar,
-        Input
+        Input,
+        Modal
     },
     computed: {
-        ...mapGetters(['getMode'])
+        ...mapGetters(['getMode', 'getModalStatus'])
     }
 }
 </script>
@@ -42,16 +47,21 @@ export default {
   min-height: 100vh;
   background: #dedede url("./assets/bg.png") no-repeat fixed;
   background-size: 100%;
-  display: grid;
   transition: .3s;
-  grid-template-areas:
-          "side content";
-  grid-template-columns: 210px 1fr;
+
 
   &__content {
     grid-area: content;
     padding: 30px;
   }
+
+  &__main {
+    display: grid;
+    grid-template-areas:
+          "side content";
+    grid-template-columns: 210px 1fr;
+  }
+
 }
 
 .dark {

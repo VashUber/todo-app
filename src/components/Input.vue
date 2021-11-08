@@ -124,7 +124,7 @@ export default {
     &--error {
       transition: .3s;
       color: #fff;
-      background: #d26363;
+      background: #c75959;
 
       &:hover {
         transition: .3s;
