@@ -1,7 +1,9 @@
 <template>
-    <transition-group name="show-elements" class="tasks-wrapper">
-        <TaskItem v-for="item in tasks" :item="item" :key="item.id"/>
-    </transition-group>
+    <div>
+        <transition-group name="show-elements" class="tasks-wrapper">
+            <TaskItem v-for="item in tasks" :item="item" :key="item.id"/>
+        </transition-group>
+    </div>
 </template>
 
 <script>
@@ -19,7 +21,7 @@ export default {
             const route = this.$route.path === '/' ? 'important' : 'daily'
             return this.getTasks(route)
         }
-    }
+    },
 }
 </script>
 

@@ -36,6 +36,20 @@ export default new Vuex.Store({
         changeModalStatus(state, payload) {
             state.modal = {isActive: !state.modal.isActive, id: payload}
         },
+        changeTask(state, payload) {
+            const {id, text, date, route} = payload
+            if (route === '/') {
+                const index = state.importantTasks.findIndex(elem => elem.id === id)
+                state.importantTasks[index] = {id, text, date}
+                state.importantTasks = JSON.parse(JSON.stringify(state.importantTasks))
+            }
+            else {
+                const index = state.dailyTasks.findIndex(elem => elem.id === id)
+                state.dailyTasks[index] = {id, text, date}
+                state.dailyTasks = JSON.parse(JSON.stringify(state.dailyTasks))
+            }
+            this.dispatch('saveToLocalStorage')
+        },
         saveToLocalStorage(state) {
             localStorage.setItem('importantTasks', JSON.stringify(state.importantTasks))
             localStorage.setItem('dailyTasks', JSON.stringify(state.dailyTasks))
@@ -59,6 +73,9 @@ export default new Vuex.Store({
         },
         changeModalStatus(context, payload) {
             context.commit('changeModalStatus', payload)
+        },
+        changeTask(context, payload) {
+            context.commit('changeTask', payload)
         }
     },
     modules: {},
@@ -74,8 +91,12 @@ export default new Vuex.Store({
             return state.dailyTasks
         },
         getTaskById: state => (id, route) => {
-            if (route === '/') return state.importantTasks.findIndex(elem => elem.id === id)
-            else return state.dailyTasks.findIndex(elem => elem.id === id)
+            if (route === '/') {
+                return state.importantTasks.find(elem => elem.id === id)
+            } else {
+                return state.dailyTasks.find(elem => elem.id === id)
+            }
         }
-    }
+    },
 })
+

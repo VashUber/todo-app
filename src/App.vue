@@ -28,7 +28,8 @@ export default {
     },
     computed: {
         ...mapGetters(['getMode', 'getModalStatus'])
-    }
+    },
+
 }
 </script>
 

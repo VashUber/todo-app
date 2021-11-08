@@ -11,7 +11,11 @@
                               fill="currentColor"/>
                     </svg>
                 </button>
-                {{task}}
+                <div class="modal__form">
+                    <input type="text" v-model="text" class="modal__text-input">
+                    <input type="date" v-model="date" class="modal__date-input">
+                    <button @click="changeTask" class="modal__button">Изменить</button>
+                </div>
             </div>
         </div>
     </transition>
@@ -24,11 +28,29 @@ import {mapGetters} from "vuex";
 export default {
     name: "Modal",
     props: {
-      id: String
+        id: String
+    },
+    mounted() {
+        this.text = this.task.text
+        this.date = this.task.date
+    },
+    data() {
+        return {
+            text: '',
+            date: ''
+        }
     },
     methods: {
         close() {
             this.$store.dispatch('changeModalStatus', '')
+        },
+        changeTask() {
+            const id = this.id
+            const text = this.text
+            const date = this.date
+            const route = this.$route.path
+            this.$store.dispatch('changeTask', {id, text, date, route})
+            this.close()
         }
     },
     computed: {
@@ -60,6 +82,32 @@ export default {
     box-sizing: border-box;
   }
 
+  &__text-input, &__date-input {
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    font-size: 1em;
+    padding: 5px 10px;
+  }
+
+  &__date-input {
+    margin-top: 20px;
+  }
+
+  &__button {
+    margin-top: 20px;
+    outline: none;
+    border: none;
+    background: #8096ff;
+    font-size: 1em;
+    width: 100px;
+    padding: 5px;
+    border-radius: 10px;
+    margin-left: auto;
+    color: #fff;
+    box-shadow: 0 0 4px 0 rgba(34, 60, 80, 0.2);
+  }
+
   &__button-close {
     transition: transform .3s;
     outline: none;
@@ -67,13 +115,22 @@ export default {
     color: #fa7373;
     display: block;
     margin-left: auto;
+    background: none;
 
     &:hover {
       transition: transform .2s;
       transform: scale(1.15);
     }
   }
+
+  &__form {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    height: 230px;
+  }
 }
+
 .modal-enter-active, .modal-leave-active {
   transition: .35s;
 }
